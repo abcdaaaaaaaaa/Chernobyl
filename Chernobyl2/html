@@ -1,4 +1,4 @@
-/*
+
 <html><head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -513,4 +513,4 @@ Pin135
 Avg: " + String(averageCPM) + " +/- " + String(sdCPM)
 ArrayVal: " + String(CPMArray[currentCPM])
 </body></html>
-*/
+
