@@ -1,3 +1,4 @@
+#include "esp_camera.h"
 #include <WiFi.h>
 
 #define PWDN_GPIO_NUM     32
@@ -18,16 +19,19 @@
 #define HREF_GPIO_NUM     23
 #define PCLK_GPIO_NUM     22
 
-const char* ssid      = "Chernobyl";          
-const char* password  = NULL;          
+//#include "camera_pins.h"
 IPAddress local_IP(192, 168, 1, 2);
+const char* ssid = "Chernobyl";
+const char* password = NULL;
+void startCameraServer();
+
+
 void setup() {
-  Serial.begin(115200); 
-  Serial.setDebugOutput(true);                
+  Serial.begin(115200);
+  Serial.setDebugOutput(true);
   Serial.println();
 
-  //cameraInit();       
-    camera_config_t config;
+  camera_config_t config;
   config.ledc_channel = LEDC_CHANNEL_0;
   config.ledc_timer = LEDC_TIMER_0;
   config.pin_d0 = Y2_GPIO_NUM;
@@ -49,6 +53,8 @@ void setup() {
   config.xclk_freq_hz = 20000000;
   config.pixel_format = PIXFORMAT_JPEG;
   
+  // if PSRAM IC present, init with UXGA resolution and higher JPEG quality
+  //                      for larger pre-allocated frame buffer.
   if(psramFound()){
     config.frame_size = FRAMESIZE_UXGA;
     config.jpeg_quality = 10;
@@ -58,31 +64,41 @@ void setup() {
     config.jpeg_quality = 12;
     config.fb_count = 1;
   }
- esp_err_t err = esp_camera_init(&config);
+
+#if defined(CAMERA_MODEL_ESP_EYE)
+  pinMode(13, INPUT_PULLUP);
+  pinMode(14, INPUT_PULLUP);
+#endif
+
+  // camera init
+  esp_err_t err = esp_camera_init(&config);
   if (err != ESP_OK) {
     Serial.printf("Camera init failed with error 0x%x", err);
     return;
   }
 
-   //cameraInit();
   sensor_t * s = esp_camera_sensor_get();
-  // initial sensors are flipped vertically and colors are a bit saturated
 
   // drop down frame size for higher initial frame rate
   s->set_framesize(s, FRAMESIZE_QVGA);
 
-  WiFi.begin(ssid, password);                 
+  WiFi.begin(ssid, password);
 
-  while (WiFi.status() != WL_CONNECTED)      
-  {
+  while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
   }
   Serial.println("");
-  Serial.println("Coneccted ");
-  startCameraServer();                       
+  Serial.println("WiFi connected");
+
+  startCameraServer();
+
+  Serial.print("Camera Ready! Use 'http://");
   Serial.print(WiFi.localIP());
-  }
+  Serial.println("' to connect");
+}
 
 void loop() {
+  // put your main code here, to run repeatedly:
+  delay(100);
 }
