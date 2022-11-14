@@ -1,0 +1,59 @@
+<!DOCTYPE html><html>
+<html><head>
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width,initial-scale=1'>
+<link rel=\"icon\" href=\"data:,\">
+<title>Chernobyl</title>
+<style>
+body {
+font-family: Arial,Helvetica,sans-serif;
+background: #000e44;
+color: #FFFFFF;
+font-size: 20px;
+font-weight: bold;
+</style>
+</head>
+<body>
+<h1></h1><table><tbody><tr><th></th><th></th></tr>
+<tr><td> <font color='orange'>Alcohol:</font></td><td><span class=\"sensor\">
+Alcohol
+<tr><td><font color='orange'>Benzene:</td><td><span class=\"sensor\">
+Benzene
+<tr><td><font color='orange'>Hexane:</td><td><span class=\"sensor\">
+Hexane
+<tr><td><font color='magenta'>CH4:</td><td><span class=\"sensor\">
+CH4
+<tr><td><font color='magenta'>Smoke:</td><td><span class=\"sensor\">
+smoke
+<tr><td><font color='cyan'>CO2:</td><td><span class=\"sensor\">
+CO2
+<tr><td><font color='cyan'>Toluen:</td><td><span class=\"sensor\">
+Toluen
+<tr><td><font color='cyan'>NH4:</td><td><span class=\"sensor\">
+NH4
+<tr><td><font color='cyan'>Aceton:</td><td><span class=\"sensor\">
+Aceton
+<tr><td><font color='red'>LPG:</td><td><span class=\"sensor\">
+LPG
+<tr><td><font color='red'>Propane:</td><td><span class=\"sensor\">
+Propane
+<tr><td><font color='aquamarine'>CO:</td><td><span class=\"sensor\">
+CO
+<tr><td><font color='aquamarine'>H2:</td><td><span class=\"sensor\">
+H2
+<tr><td><font color='blue'>Kelvin:</td><td><span class=\"sensor\">
+mpu.getTemperature()+273.15
+<tr><td><font color='blue'>Air Quality:</td><td><span class=\"sensor\">
+Pin135
+<tr><td><font color='yellow'>Radioactivite:</td><td><span class=\"sensor\">
+"Avg: " + String(averageCPM) + " +/- " + String(sdCPM)
+"ArrayVal: " + String(CPMArray[currentCPM])
+</body></html>
+
+
+
+
+
+
+
+
