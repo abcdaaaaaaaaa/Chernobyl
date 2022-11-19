@@ -38,16 +38,14 @@ const char* password = NULL;
 
 WiFiServer server2(80);
 String header;
-const int enableRightMotor=2; 
-const int rightMotorPin1=3;
-const int rightMotorPin2=4;
+const int enableRightMotor=D3; 
+const int rightMotorPin1=D4;
+const int rightMotorPin2=D5;
 
-const int enableLeftMotor=5;
-const int leftMotorPin1=6;
-const int leftMotorPin2=7;
+const int enableLeftMotor=D6;
+const int leftMotorPin1=D7;
+const int leftMotorPin2=D8;
 
-
-#define MAX_MOTOR_SPEED motor_value
 int motor_value;
 int gyro_value;
 const int PWMFreq = 1000; /* 1 KHz */
@@ -91,8 +89,8 @@ void setup(){
   averageCPM = 0;
   sdCPM = 0;
   calcCPM = 0;
-  pinMode(2, INPUT);
-  attachInterrupt(digitalPinToInterrupt(2), impulse, FALLING);  
+  pinMode(D2, INPUT);
+  attachInterrupt(digitalPinToInterrupt(D2), impulse, FALLING);  
   // Serial port for debugging purposes
   Serial.begin(115200);
   Serial.println();
@@ -122,7 +120,7 @@ void setup(){
 }
  
 void loop(){
-   x = x2;
+  x = x2;
   y = y2;
 mpu.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);
 gyro_value = map(ax, 0, 17000, 0,255);
@@ -135,16 +133,16 @@ if(y2 >= 400 && y2 <= 600) {
 rotateMotor(0, 0);
 }
 if(y2 >= 800 && y2 <= 1023) {
-rotateMotor(MAX_MOTOR_SPEED, MAX_MOTOR_SPEED);
+rotateMotor(motor_value, motor_value);
 }
 if(y2 >= 0 && y2 <= 450) {
-rotateMotor(-MAX_MOTOR_SPEED, -MAX_MOTOR_SPEED);  
+rotateMotor(-motor_value, -motor_value);  
 }
 if(x2 >= 0 && x2 <= 450) {
-rotateMotor(MAX_MOTOR_SPEED, -MAX_MOTOR_SPEED);
+rotateMotor(motor_value, -motor_value);
 }
 if(x2 >= 600 && x2 <= 1023) {
-rotateMotor(-MAX_MOTOR_SPEED, MAX_MOTOR_SPEED);
+rotateMotor(-motor_value, motor_value);
 }
      
 
@@ -356,7 +354,7 @@ void setUpPinModes()
   ledcSetup(PWMSpeedChannel, PWMFreq, PWMResolution);
   ledcAttachPin(enableRightMotor, PWMSpeedChannel);
   ledcAttachPin(enableLeftMotor, PWMSpeedChannel);  
-  ledcWrite(PWMSpeedChannel, MAX_MOTOR_SPEED);
+  ledcWrite(PWMSpeedChannel, motor_value);
   
   rotateMotor(0, 0);
 }
