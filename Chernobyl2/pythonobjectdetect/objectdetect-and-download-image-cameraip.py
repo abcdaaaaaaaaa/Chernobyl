@@ -15,7 +15,7 @@ def save_image(folder: str, name: str, url: str):
         # Default to .png
         output = name + '.png'
     else:
-        output = name + suffix
+        output = name + '.png'
 
     # Check first if folder exists, else create a new one
     if not os.path.exists(folder):
@@ -28,7 +28,7 @@ def save_image(folder: str, name: str, url: str):
 
 
 if __name__ == '__main__':
-    image_url = input('Enter image url: ')
-    output_name = input('Enter output name: ')
+    image_url = 'https://192.168.1.1/stream'
+    output_name = 'objectdetect'
 
-    save_image('folder/', output_name, image_url)
+    save_image('objectdetect/', output_name, image_url)
