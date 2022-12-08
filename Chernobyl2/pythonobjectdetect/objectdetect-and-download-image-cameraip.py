@@ -1,24 +1,15 @@
 import pyautogui
 from time import sleep
-
-x = input("write your png name:")+'.png'
-sleep(5)
-img = pyautogui.screenshot()
-img.save(x)
-print("successfully downloaded")
-import pyautogui
-from time import sleep
-
-x = input("write your png name:")+'.png'
-sleep(5)
-img = pyautogui.screenshot()
-img.save(x)
-print("successfully downloaded")
 from imageai.Detection import ObjectDetection
 import os
 
-execution_path = os.getcwd()
+x = input("write your png name:")+'.png'
+sleep(5)
+img = pyautogui.screenshot()
+img.save(x)
+print("successfully downloaded")
 
+execution_path = os.getcwd()
 detector = ObjectDetection()
 detector.setModelTypeAsRetinaNet()
 detector.setModelPath( os.path.join(execution_path , "resnet50_coco_best_v2.1.0.h5"))
